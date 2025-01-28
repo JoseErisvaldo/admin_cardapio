@@ -6,6 +6,7 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [page, setPage] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -13,7 +14,15 @@ const AuthProvider = ({ children }) => {
             setUser(session?.user ?? null);
             console.log("Subscription:", session);
             if(session) {
-                navigate("/home");
+                const open = localStorage.getItem('open');
+                switch(open) {
+                    case '1': navigate('/home');
+                     break;
+                    case '2': navigate('/catalog');
+                     break;
+                    default:
+                     break;
+                   }
             } else {
                 navigate("/");
             }
@@ -40,7 +49,7 @@ const AuthProvider = ({ children }) => {
         const { error } = await supabase.auth.signOut()
     }
     return (
-        <AuthContext.Provider value={{ CreateUser, Login, signOut, user }}>
+        <AuthContext.Provider value={{ CreateUser, Login, signOut, user, page }}>
             {children}
         </AuthContext.Provider>
     )
