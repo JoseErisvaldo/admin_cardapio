@@ -137,7 +137,70 @@ export default function SideBar() {
               </AccordionBody>
             </Accordion>
 
-            {/* Outros Acordeões Aqui */}
+            <Accordion
+              open={open === 3}
+              icon={
+                <ChevronDownIcon
+                  strokeWidth={2.5}
+                  className={`mx-auto h-4 w-4 transition-transform ${open === 3 ? "rotate-180" : ""}`}
+                />
+              }
+            >
+              <ListItem className="p-0" selected={open === 3}>
+                <AccordionHeader onClick={() => handleOpen(3)} className="border-b-0 p-3">
+                  <ListItemPrefix>
+                    <ShoppingBagIcon className="h-5 w-5" />
+                  </ListItemPrefix>
+                  <Typography color="blue-gray" className="mr-auto font-normal">
+                    Membros
+                  </Typography>
+                </AccordionHeader>
+              </ListItem>
+              <AccordionBody className="py-1">
+                <Link to="/members">
+                  <List className="p-0">
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      </ListItemPrefix>
+                      Membros
+                    </ListItem>
+                  </List>
+                </Link>
+              </AccordionBody>
+            </Accordion>
+            <Accordion
+              open={open === 4}
+              icon={
+                <ChevronDownIcon
+                  strokeWidth={2.5}
+                  className={`mx-auto h-4 w-4 transition-transform ${open === 4 ? "rotate-180" : ""}`}
+                />
+              }
+            >
+              <ListItem className="p-0" selected={open === 4}>
+                <AccordionHeader onClick={() => handleOpen(4)} className="border-b-0 p-3">
+                  <ListItemPrefix>
+                    <ShoppingBagIcon className="h-5 w-5" />
+                  </ListItemPrefix>
+                  <Typography color="blue-gray" className="mr-auto font-normal">
+                    Empresa
+                  </Typography>
+                </AccordionHeader>
+              </ListItem>
+              <AccordionBody className="py-1">
+                <Link to="/branch">
+                  <List className="p-0">
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      </ListItemPrefix>
+                      Empresa
+                    </ListItem>
+                  </List>
+                </Link>
+              </AccordionBody>
+            </Accordion>
 
           </div>
           <div className="">

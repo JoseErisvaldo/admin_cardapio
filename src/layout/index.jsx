@@ -24,7 +24,7 @@ export default function Layout({ headerChildren, bodyChildren, footerChildren,ac
 
                 
                 </div>
-                <CardFooter className="bg-blue-600 text-white">
+                <CardFooter className=" text-black">
                     {footerChildren}
                 </CardFooter>
             </div>
