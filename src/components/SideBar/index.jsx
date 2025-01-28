@@ -141,12 +141,14 @@ export default function SideBar() {
 
           </div>
           <div className="">
-            <ListItem>
+            <Link to="/profile">
+              <ListItem>
               <ListItemPrefix>
                 <UserCircleIcon className="h-5 w-5" />
               </ListItemPrefix>
               Perfil
             </ListItem>
+            </Link>
             <ListItem>
               <ListItemPrefix>
                 <Cog6ToothIcon className="h-5 w-5" />
