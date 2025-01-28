@@ -7,21 +7,24 @@ export default function Layout({ headerChildren, bodyChildren, footerChildren,ac
     return (
         <Card className="flex flex-row">
             <SideBar /> 
-            <div className="mt-10 w-full p-10">
-                <div className="flex justify-between ">
-                    <h1 className="font-bold text-3xl">
-                        {headerChildren}
-                    </h1>
-                    <div className="flex gap-4">
-                        <OpenDrawerAction title={actionHeaderChildren} bodyChildren={actionBodyChildren} nameButton={'Ações'} colorButton={'blue'} />
-                        <OpenDrawerFilter title={filterHeaderChildren} bodyChildren={filterBodyChildren} nameButton={'Filtros'} colorButton={'blue'} />
+            <div className="w-full flex flex-col justify-between">
+                <div className="mt-10 w-full p-10">
+                    <div className="flex justify-between ">
+                        <h1 className="font-bold text-3xl">
+                            {headerChildren}
+                        </h1>
+                        <div className="flex gap-4">
+                            <OpenDrawerAction title={actionHeaderChildren} bodyChildren={actionBodyChildren} nameButton={'Ações'} colorButton={'blue'} />
+                            <OpenDrawerFilter title={filterHeaderChildren} bodyChildren={filterBodyChildren} nameButton={'Filtros'} colorButton={'blue'} />
+                        </div>
                     </div>
-                </div>
-                <CardBody>
-                    {bodyChildren}
-                </CardBody>
+                    <CardBody>
+                        {bodyChildren}
+                    </CardBody>
 
-                <CardFooter>
+                
+                </div>
+                <CardFooter className="bg-blue-600 text-white">
                     {footerChildren}
                 </CardFooter>
             </div>
