@@ -4,6 +4,8 @@ import { Auth } from "./pages/Auth";
 import { AuthProvider } from "./context/Auth";
 import Catalog from "./pages/Catalog";
 import Profile from "./pages/Profile";
+import Members from "./pages/Members";
+import Branch from "./pages/Branch";
 
 export default function RouteApp() {
     return (
@@ -15,6 +17,8 @@ export default function RouteApp() {
                     <Route path="/home" element={<Home />} />
                     <Route path="/catalog" element={<Catalog />} />
                     <Route path="/profile" element={<Profile />} />
+                    <Route path="/members" element={<Members />} />
+                    <Route path="/branch" element={<Branch />} />
                 </Routes>
             </AuthProvider>
         </BrowserRouter>
