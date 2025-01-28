@@ -1,6 +1,7 @@
 import Layout from "../../layout";
 
 import ViewProfile from "../../components/Profile";
+import Plan from "../../components/Plan";
 
 function Profile() {
 
@@ -25,7 +26,7 @@ function Profile() {
 
                 </>
             }
-            footerChildren={<p>Rodapé do Card</p>}
+            footerChildren={<p><Plan /></p>}
         />
     );
 }

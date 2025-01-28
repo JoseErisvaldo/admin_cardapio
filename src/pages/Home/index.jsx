@@ -1,3 +1,4 @@
+import Plan from "../../components/Plan";
 import Layout from "../../layout";
 
 
@@ -25,7 +26,7 @@ function App() {
                     <p>Conteúdo do corpo 2</p>
                 </>
             }
-            footerChildren={<p>Rodapé do Card</p>}
+            footerChildren={<p><Plan /></p>}
         />
     );
 }

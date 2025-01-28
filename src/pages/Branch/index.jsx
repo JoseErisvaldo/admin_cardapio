@@ -1,5 +1,6 @@
 import Layout from "../../layout";
 import ViewBranch from "../../components/Branch";
+import Plan from "../../components/Plan";
 
 function Branch() {
 
@@ -24,7 +25,7 @@ function Branch() {
 
                 </>
             }
-            footerChildren={<p>Rodapé do Card</p>}
+            footerChildren={<p><Plan /></p>}
         />
     );
 }

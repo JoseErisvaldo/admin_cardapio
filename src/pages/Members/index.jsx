@@ -1,3 +1,4 @@
+import Plan from "../../components/Plan";
 import Table from "../../components/UI/Table";
 import Layout from "../../layout";
 
@@ -33,7 +34,7 @@ function Members() {
 
                 </>
             }
-            footerChildren={<p>Rodapé do Card</p>}
+            footerChildren={<p><Plan /></p>}
         />
     );
 }
