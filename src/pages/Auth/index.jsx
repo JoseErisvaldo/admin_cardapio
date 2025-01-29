@@ -6,12 +6,14 @@ import {
     Typography,
     Input,
     Button,
+    Alert,
   } from "@material-tailwind/react";
   import { useContext, useState } from "react";
 import { AuthContext } from "../../context/Auth";
+import { CheckIcon, XCircleIcon } from "@heroicons/react/24/solid";
   
   export function Auth() {
-    const { CreateUser, Login } = useContext(AuthContext);
+    const { CreateUser, Login, accountCreateStatus } = useContext(AuthContext);
     const [formDataLogin, setFormDataLogin] = useState({
       email: "",
       password: "",
@@ -91,6 +93,19 @@ import { AuthContext } from "../../context/Auth";
                   : handleInputChange(e, formDataLogin, setFormDataLogin)
               }
             />
+            {accountCreateStatus && ( 
+                  <Alert
+                  color="green"
+                  icon={<CheckIcon className="h-6 w-6" />}
+                  dismissible
+                >
+                  <span>
+                    <span className="font-medium">Conta criada!</span> Agora faça login.
+                  </span>
+                </Alert>
+            )}
+
+        
           </CardBody>
   
           <CardFooter className="pt-0 flex flex-col gap-4">

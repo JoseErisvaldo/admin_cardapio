@@ -7,52 +7,90 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [page, setPage] = useState(null);
+    const [accountCreateStatus, setAccountCreateStatus] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+        const { data } = supabase.auth.onAuthStateChange((_event, session) => {
             setUser(session?.user ?? null);
             console.log("Subscription:", session);
-            if(session) {
-                const open = localStorage.getItem('open');
-                switch(open) {
-                    case '1': navigate('/home');
-                     break;
-                    case '2': navigate('/catalog');
-                     break;
+
+            if (session) {
+                const open = localStorage.getItem("open");
+                switch (open) {
+                    case "1":
+                        navigate("/home");
+                        break;
+                    case "2":
+                        navigate("/catalog");
+                        break;
                     default:
-                     break;
-                   }
+                        navigate("/home");
+                        break;
+                }
             } else {
                 navigate("/");
             }
         });
-    
-        return () => subscription.unsubscribe();
-    }, []); 
-    
+
+        return () => {
+            if (data?.subscription) {
+                data.subscription.unsubscribe();
+            }
+        };
+    }, []);
+
     async function CreateUser(email, password) {
         const { data, error } = await supabase.auth.signUp({
-            email: email,
-            password: password
-        })  
-     }
+            email,
+            password
+        });
+    
+        if (error) {
+            console.error("Erro ao criar conta:", error.message);
+            return;
+        }
+    
+        const userId = data?.user?.id;
+    
+        if (!userId) {
+            console.error("Usuário não autenticado. Não é possível inserir no banco.");
+            return;
+        }
+    
+        const { error: insertError } = await supabase
+            .from("users")
+            .insert([{ user_id: userId }]);
+    
+        if (insertError) {
+            console.error("Erro ao inserir usuário no banco:", insertError.message);
+        } else {
+            console.log("Usuário inserido com sucesso!");
+        }
+    }
+    
 
     async function Login(email, password) {
-        const { data, error } = await supabase.auth.signInWithPassword({
-            email: email,
-            password: password
-        })
-     }
+        const { error } = await supabase.auth.signInWithPassword({ email, password });
 
-    async function signOut ()  {
-        const { error } = await supabase.auth.signOut()
+        if (error) {
+            console.error("Erro ao fazer login:", error.message);
+        }
     }
+
+    async function signOut() {
+        const { error } = await supabase.auth.signOut();
+
+        if (error) {
+            console.error("Erro ao fazer logout:", error.message);
+        }
+    }
+
     return (
-        <AuthContext.Provider value={{ CreateUser, Login, signOut, user, page }}>
+        <AuthContext.Provider value={{ CreateUser, Login, signOut, user, page, accountCreateStatus }}>
             {children}
         </AuthContext.Provider>
-    )
-}
+    );
+};
 
 export { AuthContext, AuthProvider };
