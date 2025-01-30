@@ -1,24 +1,48 @@
+import { useEffect, useState } from "react";
 import Plan from "../../components/Plan";
 import Table from "../../components/UI/Table";
 import Layout from "../../layout";
-
+import supabase from "../../services/supabaseClient";
+import { NewUser } from "../../components/Users/NewUser";
+import { useUser } from "../../context/UserContext";
 function Members() {
-    const headers = ["Nome", "Idade", "Cargo","Empresa"];
-    const data = [
-      ["João Silva", 30, "Desenvolvedor","Google"],
-      ["Maria Oliveira", 28, "Designer","Facebook"],
-      ["Carlos Santos", 35, "Gerente","Amazon"],
-      ["Ana Souza", 26, "Analista","Microsoft"],
-      ["Fernando Lima", 40, "Diretor","Apple"],
-    ];
+    const{idRole} = useUser()
+    const headers = ["Nome", "Telefone", "Cargo", "Empresa"];
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        async function fetchMembers() {
+            try {
+                let { data: members, error } = await supabase
+                    .from("view_admin_users")
+                    .select("name, whatsapp, name_role, name_branch");
+
+                if (error) throw error;
+
+                // Transformar os dados no formato correto para a tabela
+                const formattedData = members.map(member => [
+                    member.name,
+                    member.whatsapp,
+                    member.name_role,
+                    member.name_branch
+                ]);
+
+                setData(formattedData);
+            } catch (error) {
+                console.error("Erro ao buscar membros:", error.message);
+            }
+        }
+
+        fetchMembers();
+    }, []);
+
     return (
         <Layout
-            headerChildren={'Membros'}
+            headerChildren="Membros"
             actionHeaderChildren={<h1>Ação</h1>}
             actionBodyChildren={
                 <>
-                    <p>Conteúdo do corpo 1</p>
-                    <p>Conteúdo do corpo 2</p>
+                    {idRole === 1 && <NewUser />}
                 </>
             }
             filterHeaderChildren={<h1>Filtros</h1>}
@@ -29,12 +53,9 @@ function Members() {
                 </>
             }
             bodyChildren={
-                <>
-                    <p><Table title={'Membros'} subtitle={'Lista de membros'} headers={headers} data={data} /></p>
-
-                </>
+                <Table title="Membros" subtitle="Lista de membros" headers={headers} data={data} />
             }
-            footerChildren={<p><Plan /></p>}
+            footerChildren={<Plan />}
         />
     );
 }

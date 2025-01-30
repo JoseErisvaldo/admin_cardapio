@@ -6,20 +6,23 @@ import Catalog from "./pages/Catalog";
 import Profile from "./pages/Profile";
 import Members from "./pages/Members";
 import Branch from "./pages/Branch";
+import { UserProvider } from "./context/UserContext";
 
 export default function RouteApp() {
     return (
         <BrowserRouter>
             <AuthProvider>  
-                <Routes>
-                    <Route path="/" element={<Auth />} />
+                <UserProvider>
+                    <Routes>
+                        <Route path="/" element={<Auth />} />
 
-                    <Route path="/home" element={<Home />} />
-                    <Route path="/catalog" element={<Catalog />} />
-                    <Route path="/profile" element={<Profile />} />
-                    <Route path="/members" element={<Members />} />
-                    <Route path="/branch" element={<Branch />} />
-                </Routes>
+                        <Route path="/home" element={<Home />} />
+                        <Route path="/catalog" element={<Catalog />} />
+                        <Route path="/profile" element={<Profile />} />
+                        <Route path="/members" element={<Members />} />
+                        <Route path="/branch" element={<Branch />} />
+                    </Routes>
+                </UserProvider>
             </AuthProvider>
         </BrowserRouter>
     );

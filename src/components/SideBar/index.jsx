@@ -49,10 +49,6 @@ export default function SideBar() {
   const handleSignOut = () => {
     signOut();
   };
-
-
-  console.log(page);
-
   return (
     <div className="fixed sm:sticky sm:flex sm:flex-col">
       {!mobile && (

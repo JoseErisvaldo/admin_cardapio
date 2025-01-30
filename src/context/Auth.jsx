@@ -13,8 +13,6 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const { data } = supabase.auth.onAuthStateChange((_event, session) => {
             setUser(session?.user ?? null);
-            console.log("Subscription:", session);
-
             if (session) {
                 const open = localStorage.getItem("open");
                 switch (open) {
@@ -23,6 +21,12 @@ const AuthProvider = ({ children }) => {
                         break;
                     case "2":
                         navigate("/catalog");
+                        break;
+                    case "3":
+                        navigate("/members");
+                        break;
+                    case "4":
+                        navigate("/branch");
                         break;
                     default:
                         navigate("/home");
@@ -65,7 +69,6 @@ const AuthProvider = ({ children }) => {
         if (insertError) {
             console.error("Erro ao inserir usuário no banco:", insertError.message);
         } else {
-            console.log("Usuário inserido com sucesso!");
         }
     }
     
